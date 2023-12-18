@@ -1340,7 +1340,7 @@ print("MLP Validation Metrics:", validationMetrics)
 
 # COMMAND ----------
 
-print(trainPred)
+print(trainPred.collect())
 
 # COMMAND ----------
 

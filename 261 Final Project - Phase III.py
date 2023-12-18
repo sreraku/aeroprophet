@@ -221,10 +221,6 @@ plt.show()
 
 # COMMAND ----------
 
-# MAGIC %md *Checkpointing*
-
-# COMMAND ----------
-
 # MAGIC %md *Train/Test Split and Cross Folds*
 # MAGIC
 # MAGIC Since our data is temporal in nature, we used standard time series methods for the train/validate/test splits and cross validation. This prevents data leakage by ensuring data in the future is not used to make predictions about the past. 
@@ -409,7 +405,7 @@ plt.show()
 
 # COMMAND ----------
 
-# MAGIC %md *Long Short-Term Memory(LSTM-43-Sigmoid-1tanh)*
+# MAGIC %md *Long Short-Term Memory (LSTM-43-Sigmoid-1tanh)*
 # MAGIC
 # MAGIC LSTM is another deep learning model that was applied on the lasso folds as well as the final validation data. Similar to MLP, multiple experiments were conducted by changing the number of layers, epochs, loss functions, optimizer, learning rate. The output layer chosen here is 1 as this is a binary classification. Finally the epochs were restricted to 10 as the loss converged to a minimum at 10th epoch. F1 and AUC scores were collected where the AUC score was close but less than the ones from MLP while F1 was half of the MLP one. As the model was taking too long to run on all the 5 folds, only 10% of that data was chosen to be run with LSTM. Given good resources, we would have been able to run the LSTM on entirety of dataset. If given more time, we would go in this path of experimentation using LSTM or other DL models.
 # MAGIC
@@ -478,7 +474,7 @@ plt.show()
 # MAGIC
 # MAGIC Our data join captured flight and weather data from 2015-2021. Out of personal curiosity we took our final model and used 2019-2021 data as our holdout test set (instead of 2019 only).  Our model had an F1 Score of 0.656, a notable reduction in performance from our 2019 only F1-score. This is not entirely surprising given the severe impact of Covid-19 on airline traffic patterns, which occured primarily during that time frame. It gave the team a healthy appreciation for data shift that occurs naturally over time. It clearly illustrated the importance of regularly evaluating and retraining models to maintain desired performance.    
 # MAGIC
-# MAGIC A few other gaps our team indentified relate to pre-processing and feature engineering. We used standard scaler to rescale our data which may have skewed our distributions for non-normal features. In furture work, we'd like to leverage min max scaling instead for non-normal features. Next we identified a small area of data leakage relating to page rank. We calculated page rank on the entire dataset instead of using past data. We don't believe this had a significant affect on performance, but when put into production, our model will need to leverage existing page ranks and could lead to slight performance changes.
+# MAGIC A few other gaps our team indentified relate to pre-processing and feature engineering. We used standard scaler to rescale our data which may have skewed our distributions for non-normal features. In future work, we'd like to leverage min max scaling instead for non-normal features. Next we identified a small area of data leakage relating to page rank. We calculated page rank on the entire dataset instead of using past data. We don't believe this had a significant affect on performance, but when put into production, our model will need to leverage existing page ranks and could lead to slight performance changes.
 # MAGIC
 # MAGIC One area our model performed quite well is striking a balance between recall and precision. As discussed, we achieved a high F1 score. However, this could be due to high precision and low recall, or vice versa. In reality, our model achieved a 0.806 precision and 0.831 recall. Our goal at the outset was to achieve balance so we can warn customers about as many delays as possible, but without disrupting schedules unnecessarily. 
 
